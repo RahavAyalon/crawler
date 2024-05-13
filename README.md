@@ -1,3 +1,8 @@
+## Overview ##
+
+Given an entry point for a website (e.g.https://example.com), this crawler downloads all pages of the website into a 
+designated local folder once.
+
 ## Getting Started ##
 
 ### Prerequisites ###
@@ -34,11 +39,6 @@ pytest test_crawler.py
 
 ## Design ##
 
-### Overview ###
-
-Given an entry point for a website (e.g.https://example.com), this crawler downloads all pages of the website into a 
-designated local folder once.
-
 #### Main Elements ###
 
 1. **URL Manager:** 
@@ -71,10 +71,11 @@ and horizontally (crawling many websites simultaneously), several issues and mit
 
 **Vertical Scaling Issues:**
 
-**Long response times:** is currently mitigated by multi-threading which allows crawling various pages in parallel. 
+1. **Long response times:** is currently mitigated by multi-threading which allows crawling various pages in parallel. 
 The number of threads can be adjusted based on server and network capacity. 
 Future improvement may include auto-scaling of the server's resources when crawling big websites.
-**Rate limits:** imposed by websites to prevent excessive access is currently managed by the implementation of a 
+
+2. **Rate limits:** imposed by websites to prevent excessive access is currently managed by the implementation of a 
 random delay (between 0.05s to 0.15s) between requests. This feature helps the system to avoid triggering IP block 
 mechanisms. The system also utilizes random user-agent request headers to mimic network from different sources. 
 Future improvements may include user-agent rotation which will enhance its abilities or even the incorporation of a 
@@ -87,10 +88,12 @@ rules may prevent accessing disallowed links and blocking.
 1.**Load distribution:** can address challenges of load imbalance where some crawlers might be overburdened. 
 To mitigate this issue, we may want to utilize advanced load-balancing techniques that consider each crawler's load and
 capacity.
+
 2.**State management:** that maintains consistent state information across crawlers, could be achieved by designing
 the system to be stateless where feasible (meaning minimizing the mutual context of different crawlers).
 Furthermore, we may want to ensure each website (or part of it) is assigned to only one crawler at a time. 
 This can be managed through a centralized queue system that assigns websites (or sub-websites) to crawlers.
+
 3.**Data management:** in a distributed web crawler implemented using local storage can lead to significant scalability
 challenges, including limited storage capacity, inconsistency as well as complications in data retrieval for analysis. 
 Transitioning to a centralized storage solution, such as a cloud-based storage service like Amazon S3, can address these
