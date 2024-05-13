@@ -1,6 +1,5 @@
 beautifulsoup4
 requests
-urllib
 python-dotenv
 w3lib
 validators
